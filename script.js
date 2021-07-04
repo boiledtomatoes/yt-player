@@ -1,3 +1,5 @@
+var url;
+var videoId;
 var isLoaded = false;
 
 // regular expressions used in the program, I highly suggest using regex101.com for a detailed explaination of the expression's inner workings 
@@ -11,7 +13,7 @@ const urlValidator =
 const whiteSpaceValidator = /\s/g;
 function getVideoURL() {
   // gets our url from a prompt
-  var url = prompt("Insert the URL of the video you want to watch");
+  url = prompt("Insert the URL of the video you want to watch");
   var hasWhiteSpace = whiteSpaceValidator.test(url);
   if (hasWhiteSpace) {
     url.replace(/\s/g, "");
@@ -39,21 +41,21 @@ function validateURL(url) {
 
 function getId(url) {
   // strips the video id from our url
-  var videoId = videoIdExtractor.exec(url)[2];
+  videoId = videoIdExtractor.exec(url)[2];
   loadVideo(videoId);
   return videoId;
 }
 
 function loadVideo(videoId) {
-  // sets the video player iframe's url to a youtube embed url(explains why there are no video advertisements and why it is completely legal to opperate this website)
-  document.getElementById("videoPlayer").src = `https://www.youtube.com/embed/${videoId}`;
+  // sets the video player iframe's url to a youtube privacy-enhanced url(video doesn't show up on user's youtube search history)
+  document.getElementById("videoPlayer").src = `https://www.youtube-nocookie.com/embed/${videoId}`;
   isLoaded = true;
 }
 
 function openFullscreen() {
   // puts the player in full screen mode
   var player = document.getElementById("videoPlayer");
-  if (player.src.length != 0) {
+  if (player.src.length != 0 && isLoaded) {
     if (player.requestFullscreen) {
       player.requestFullscreen();
     } else if (player.webkitRequestFullscreen) {
@@ -72,7 +74,7 @@ function openFullscreen() {
 }
 
 function refresh() {
-  // resets the player if the user entered an invalid url or ran into another problem
+  // allows the user to reset the player if they entered an invalid url or ran into another problem
   url = "";
   document.getElementById("videoPlayer").src = "";
   isLoaded = false;
@@ -98,10 +100,16 @@ function info() {
 
 
 function openVideoInNewTab() {
-  // enables users to open the video in a new tab for the purpose of liking/disliking, etc... 
+  // opens a window that takes the user to the video on the youtube site for the purpose of liking or disliking the video
   if (isLoaded) {
-   window.open(url);
+    // TODO: change to responsive size
+    let w = 1000;
+    let h = 900;
+    var left = (screen.width/2)-(w/2);
+    var top = (screen.height/2)-(h/2);
+    window.open("https://www.youtube.com/watch?v=" + videoId, document.title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left)
   } else {
-    console.log("Unable to open video in new tab");
+    alert("Unable to open video in new tab\nEnter a url first");
+    getVideoURL();
   }
- }
+}
