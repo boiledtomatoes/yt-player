@@ -49,29 +49,31 @@
               required
               placeholder="enter a youtube video URL"
             />
-            <button
-              id="play"
-              onclick="getVideoURL()"
-              title="play video url"
-              disabled
-            >
-              play
-            </button>
-
+            <div class="tooltip">
+              <span class="tooltiptext">play video</span>
+              <button
+                id="play"
+                onclick="getVideoURL()"
+                disabled
+              >
+                play
+              </button>
+            </div>
             <!--  onclick same as refresh() with the exception of no changes made to the iframe or expand button, clearing input-field throught onclick instead of refresh() function to prevent whole player from being resetted. -->
-
-            <button
-              id="clear"
-              onclick='document.querySelector("#input-field").className = "";
-  document.querySelector("#play").className = "";
-  document.querySelector("#play").style.color = "black";
-  document.querySelector("#play").disabled = true;
-  document.querySelector("#input-field").value = "";
-  document.querySelector("#input-field").focus(); clearNotification()'
-              title="play video url entered"
-            >
-              clear
-            </button>
+            <div class="tooltip">
+              <span class="tooltiptext">clear url</span>
+              <button
+                id="clear"
+                onclick='document.querySelector("#input-field").className = "";
+    document.querySelector("#play").className = "";
+    document.querySelector("#play").style.color = "black";
+    document.querySelector("#play").disabled = true;
+    document.querySelector("#input-field").value = "";
+    document.querySelector("#input-field").focus(); clearNotification()'
+              >
+                clear
+              </button>
+            </div>
           </div>
           <fieldset>
             <legend>options</legend>
