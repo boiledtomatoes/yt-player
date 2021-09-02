@@ -1,6 +1,8 @@
 # [yt player](https://unrealapex.github.io/yt-player/)
+[![license: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE) 
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) 
 
-a fast and minimalistic video player for YouTube videos
+yaply terse player(now those aren't words you see everyday) shortened to yt player is a fast and minimalistic video player for YouTube videos and more platforms to come
 
 ## features
 - minimalist design
@@ -11,5 +13,3 @@ a fast and minimalistic video player for YouTube videos
 ui slightly improved from [typings.gg](https://github.com/briano1905/typings)
 
 [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/unrealapex/yt-player)
-
-license: [MIT](LICENSE)

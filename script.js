@@ -19,7 +19,7 @@ function getVideoURL() {
   url = document.querySelector("#input-field").value;
   // alert("executed got video url");
   let hasWhiteSpace = whiteSpaceRE.test(url);
-  url = hasWhiteSpace ? (url = url.replace(/\s/g, "")) : url;
+  url = (hasWhiteSpace ? url.replace(/\s/g, "") : url);
   getId(url);
 }
 
@@ -97,9 +97,9 @@ function openFullscreen() {
       alert("Unable to open video in full screen");
     }
   } else {
-    console.log("Error: unable to toggle full screen\nReason: no URL found");
+    console.log("Error: unable to toggle full screen" + "\n" + "Reason: no URL found");
     alert(
-      "We are unable to toggle full screen if a video hasn't been loaded\nPlease enter a URL first"
+      "We are unable to toggle full screen if a video hasn't been loaded" + "\n" + "Please enter a URL first"
     );
     // getVideoURL();
   }
@@ -123,6 +123,11 @@ function refresh() {
   return isLoaded;
 }
 
+// reloads video in video player
+function reload() {
+  loadVideo(videoIdExtractor.exec(document.querySelector("#url-input").value)[2]);
+}
+
 function shareVideo() {
   // copies shortened youtube url to the user's clipboard
   if (videoId !== undefined) {
@@ -130,9 +135,9 @@ function shareVideo() {
     alert("Link copied to clipboard");
   } else {
     console.log(
-      "Error: unable to copy shortened URL to clipboard\nReason: no URL found"
+      "Error: unable to copy shortened URL to clipboard" + "\n" + "Reason: no URL found"
     );
-    alert("You haven't entered a URL to share\nPlay a video and try again");
+    alert("You haven't entered a URL to share" + "\n" + "Play a video and try again");
     getVideoURL();
   }
 }
@@ -164,15 +169,16 @@ function openVideoInNewTab() {
         left
     );
   } else {
-    console.log("Error: unable to open video in new tab\nReason: no URL found");
+    console.log("Error: unable to open video in new tab" + "\n" + "Reason: no URL found");
     alert(
-      "We can't open video in new tab because you haven't entered a URL\n Play a video and try again"
+      "We can't open video in new tab because you haven't entered a URL" + "\n" + "Play a video and try again"
     );
     getVideoURL();
   }
 }
 
 
+// remove this function if not in use
 // Private Mode allows users to view videos on YT Player without them influening their YouTube and browsing experience.
 // For example, I'm a cat person and I want cat ads when I browse the internet. Say if I watched a video titled "Top 10 Reasons Why You Should Buy A Dog"
 // Next time I would go on the Verge (https://www.theverge.com/) I would be getting dog adverts.
@@ -236,8 +242,9 @@ function minimizeOverlay() {
 }
 
 
-function setNotification(message, level = 0) {
-  // sets notification, different notification levels have different text colors, 0 being a normal message, 1 being a "correct" message, and -1 being an "error" message
+function setNotification(message, level = 0, duration = 0) {
+  // sets notification, levels show different notification colors, duration determines how long notification appears on screen 
+  // level 0 is a normal message, level 1 is a "correct" message, and level -1 is an "error" message
   document.querySelector("#notification").innerHTML = message;
   if (level === 0) {
     document.querySelector("#notification").className = "normal";
@@ -248,6 +255,14 @@ function setNotification(message, level = 0) {
   } else {
     console.error("Error setting notification");
   }
+
+  if (duration > 0) {
+    setTimeout(clearNotification, duration *= 1000);
+  } else if (duration === 0) {
+    console.log("No duration given for notification");
+  } else {
+    console.error("Invalid duration given!");
+  }
 }
 
 function clearNotification() {
@@ -255,3 +270,15 @@ function clearNotification() {
   document.querySelector("#notification").innerHTML = "";
   document.querySelector("#notification").className = "";
 }
+
+// keyboard shortcuts
+document.addEventListener("keydown", function(event) {
+  if (event.key === "r" && document.querySelector("#overlay").style.display == "block") {
+    reload();
+  }  else if (event.key === "Escape" && document.fullscreenElement === null &&  document.querySelector("#overlay").style.display == "block") {
+    document.querySelector("#overlay").style.display = "none";
+    document.querySelector("#input-field").select();
+  } else {
+
+  }
+});
