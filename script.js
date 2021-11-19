@@ -98,7 +98,9 @@ function loadVideo(videoId) {
   if (privateMode()) {
     // sets the video player iframe's url to a youtube privacy-enhanced url(video doesn't show up on user's youtube search history) if the user has enabled Privacy Mode
     iframe.src = "https://www.youtube-nocookie.com/embed/" + videoId + "?dnt=1";
-  }
+  } } else {
+    iframe.src = "https://www.youtube-nocookie.com/embed/" + videoId + "?dnt=1";
+    
   if (loadInFullscreen()) {
     openFullscreen();
   } else {
@@ -150,7 +152,7 @@ function reset() {
   playButton.disabled = true;
   inputField.value = "";
   inputField.focus();
-  document.querySelector("#private-mode").checked = false;
+  document.querySelector("#private-mode").checked = true;
   clearNotification();
   isLoaded = false;
   return isLoaded;
@@ -183,7 +185,7 @@ function shareVideo() {
 
 function about() {
   alert(
-    "yt player is a minimalistic video player for youtube videos(more support possibly in the near future). it was created by unrealapex with the aim of being able to watch youtube videos quickly with no interuptions. made with love by unrealapex.\nthank you to all those who helped improve this project!"
+    "yt player is a minimalistic video player for youtube videos(more support possibly in the near future). it was created by unrealapex (edited by boiledtomatoes) with the aim of being able to watch youtube videos quickly with no interuptions. made with love by unrealapex.\nthank you to all those who helped improve this project!"
   );
 }
 
