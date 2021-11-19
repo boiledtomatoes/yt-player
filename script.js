@@ -149,7 +149,7 @@ function reset() {
   inputField.className = "";
   playButton.className = "";
   playButton.style.color = "#1a1a1a";
-  playButton.disabled = true;
+  playButton.disabled = false;
   inputField.value = "";
   inputField.focus();
   document.querySelector("#private-mode").checked = true;
